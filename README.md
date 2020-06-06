@@ -114,7 +114,7 @@ Notes:
 * If the CSVs contain rows for the country as a whole, that data is used directly. If data is only
   available for regions within the country, they are added up to compute the country values.
 * The active case numbers are not read from the CSVs. They are computed as
-  `confirmed - recovered - deaths`.
+  `active = confirmed - (recovered + deaths)`.
 
  # Related works
 
