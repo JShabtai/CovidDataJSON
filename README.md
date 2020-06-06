@@ -3,6 +3,13 @@
 This repo is a tool to process the Johns Hopkins daily reports into a single JSON file. The file is moderately
 large (~8MB at the moment, but obviously growing every day).
 
+# Precomputed data
+
+The output of this script can be found on the `data` branch of this repository.
+[https://github.com/JShabtai/CovidDataJSON/tree/data/data](https://github.com/JShabtai/CovidDataJSON/tree/data/data)
+
+I will try to keep that up to date, but make no guarantees.
+
 # Motivation
 
 The Johns Hopkins data, while really useful, is in a CSV format which can be a bit tricky to parse
