@@ -6,12 +6,17 @@ import commandLineArgs from 'command-line-args';
 
 import { DatasetToObjectOptions } from './Dataset';
 
+interface Options extends DatasetToObjectOptions {
+    output?: string;
+}
+
 const optionDefinitions = [
+    { name: 'output', alias: 'o', type: String },
     { name: 'minCases', alias: 'm', defaultValue: 0, type: Number },
     { name: 'skipMissingDates', alias: 'a', defaultValue: false, type: Boolean },
 ];
 
-const options = commandLineArgs(optionDefinitions) as DatasetToObjectOptions;
+const options = commandLineArgs(optionDefinitions) as Options;
 
 import { caseTypes, Dataset } from './Dataset';
 import { DirParser, RegExpMap } from './DirParser';
@@ -29,4 +34,9 @@ const globalFieldNames: RegExpMap = {
 const globaldir = new DirParser(dataDirGlobal, globalFieldNames);
 const globalDataset = globaldir.getDataset();
 
-console.log(JSON.stringify(globalDataset.toObject(options)));
+if (typeof(options.output) === 'string') {
+    fs.writeFileSync(options.output, JSON.stringify(globalDataset.toObject(options)));
+}
+else {
+    console.log(JSON.stringify(globalDataset.toObject(options)));
+}
