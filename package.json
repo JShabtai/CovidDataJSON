@@ -16,7 +16,7 @@
     "generate:all:min": "npm run run -- --minCases 0 --skipMissingDates >./data/covid.all.min.json",
     "generate:5:min": "npm run run -- --minCases 5 --skipMissingDates >./data/covid.5.min.json",
     "generate:100:min": "npm run run -- --minCases 100 --skipMissingDates >./data/covid.100.min.json",
-    "gzip": "gzip -k data/*.json",
+    "gzip": "gzip -kf data/*.json",
     "update": "mkdir data; npm-run-all build generate:all generate:5 generate:100 generate:all:min generate:5:min generate:100:min gzip"
   },
   "dependencies": {
