@@ -2,6 +2,17 @@ import { parse } from '@vanillaes/csv'
 import * as fs from 'fs';
 import * as path from 'path';
 
+import commandLineArgs from 'command-line-args';
+
+import { DatasetToObjectOptions } from './Dataset';
+
+const optionDefinitions = [
+    { name: 'minCases', alias: 'm', defaultValue: 0, type: Number },
+    { name: 'skipMissingDates', alias: 'a', defaultValue: false, type: Boolean },
+];
+
+const options = commandLineArgs(optionDefinitions) as DatasetToObjectOptions;
+
 import { caseTypes, Dataset } from './Dataset';
 import { DirParser, RegExpMap } from './DirParser';
 
@@ -18,4 +29,4 @@ const globalFieldNames: RegExpMap = {
 const globaldir = new DirParser(dataDirGlobal, globalFieldNames);
 const globalDataset = globaldir.getDataset();
 
-console.log(JSON.stringify(globalDataset.toObject(globaldir.dates)));
+console.log(JSON.stringify(globalDataset.toObject(options)));

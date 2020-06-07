@@ -21,7 +21,10 @@ export class DirParser {
         const country = this.globe.get(countryName)!;
 
         if (!country.has(province)) {
-            let dataset = new Dataset(province);
+            // Note: this.dates may not have all the dates at this point in time if
+            // we are not done processing the directory yet, but since the array is
+            // a reference, it will have all the dates by the time this is needed.
+            let dataset = new Dataset(province, this.dates);
 
             dataset.name = province;
 
@@ -36,7 +39,7 @@ export class DirParser {
     constructor (dataDir: string, fieldNames: RegExpMap) {
         fs.readdirSync(dataDir).filter((filename) => {
             return filename.endsWith('.csv');
-        }).forEach((csvFilename) => {
+        }).sort().forEach((csvFilename) => {
             const date = new Date(csvFilename.substring(0, 10)).toISOString().substring(0,10);
             this.dates.push(date);
 
@@ -82,10 +85,10 @@ export class DirParser {
     }
 
     public getDataset(): Dataset {
-        const globalDataset = new Dataset('Global');
+        const globalDataset = new Dataset('Global', this.dates);
 
         for (let countryName of this.globe.keys()) {
-            const country = new Dataset(countryName);
+            const country = new Dataset(countryName, this.dates);
             if(this.globe.get(countryName)!.has('')){
                 country.addDataset(this.globe.get(countryName)!.get('')!);
             }
