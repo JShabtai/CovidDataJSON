@@ -17,7 +17,8 @@
     "generate:5:min": "npm run run -- --minCases 5 --skipMissingDates --output ./data/covid.5.min.json",
     "generate:100:min": "npm run run -- --minCases 100 --skipMissingDates --output ./data/covid.100.min.json",
     "gzip": "gzip -kf data/*.json",
-    "update": "mkdir data; npm-run-all build generate:all generate:5 generate:100 generate:all:min generate:5:min generate:100:min gzip"
+    "update:submodule": "cd COVID-19; git pull",
+    "update": "mkdir data; npm-run-all update:submodule build generate:all generate:5 generate:100 generate:all:min generate:5:min generate:100:min gzip"
   },
   "dependencies": {
     "@types/command-line-args": "^5.0.0",
